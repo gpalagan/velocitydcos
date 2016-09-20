@@ -28,3 +28,15 @@ node {
         sh "docker push gptester/velocitydcos:${gitCommit()}"
     }
 }
+
+    // Deploy
+    stage 'Deploy'
+
+    marathon(
+        url: 'http://marathon.mesos:8080',
+        forceUpdate: false,
+        credentialsId: 'dcos-token',
+        filename: 'marathon.json',
+        appId: 'mesosphere-gpdcos',
+        docker: "gptester/velocitydcos:${gitCommit()}".toString()
+    )
