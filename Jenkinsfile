@@ -27,7 +27,7 @@ node {
         sh "docker login -u ${env.DOCKERHUB_USERNAME} -p ${env.DOCKERHUB_PASSWORD} -e demo@mesosphere.com"
         sh "docker push gptester/velocitydcos:${gitCommit()}"
     }
-}
+
 
     // Deploy
     stage 'Deploy'
@@ -39,4 +39,6 @@ node {
         filename: 'marathon.json',
         appId: 'mesosphere-gpdcos',
         docker: "gptester/velocitydcos:${gitCommit()}".toString()
-    )
+)
+
+}
