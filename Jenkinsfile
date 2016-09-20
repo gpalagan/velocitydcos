@@ -12,14 +12,14 @@ node {
 
     // Build Docker image
     stage 'Build'
-    sh "docker build -t gptester/dcos:${gitCommit()} ."
+    sh "docker build -t gpalagan/velocitydcos:${gitCommit()} ."
 
     // Log in and push image to GitLab
     stage 'Publish'
     withCredentials(
         [[
             $class: 'UsernamePasswordMultiBinding',
-            credentialsId: 'dcos',
+            credentialsId: 'gpdcos',
             passwordVariable: 'DOCKERHUB_PASSWORD',
             usernameVariable: 'DOCKERHUB_USERNAME'
         ]]
